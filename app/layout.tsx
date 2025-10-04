@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-
+import { SessionProvider } from "next-auth/react";
 import { Geist, Geist_Mono } from "next/font/google";
 
 import "./globals.css";
@@ -30,12 +30,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Navbar />
-        <main className="container mx-auto py-4">
-        {children}
-        </main>
-        
-       
+        <SessionProvider>
+          <Navbar />
+          <main className="container mx-auto py-4">
+            {children}
+          </main>
+        </SessionProvider>
       </body>
     </html>
   );

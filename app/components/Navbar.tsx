@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import React from 'react'
 import Image from 'next/image';
-import { SignIn } from './auth-component';
+import { SignIn, SignOut } from './auth-component';
 import { auth } from '@/auth';
 
 const Navbar = async () => {
@@ -24,12 +24,12 @@ const Navbar = async () => {
 
         {/* user profile*/}
         {
-        session?.user ? <div className="flex space-x-4">
-            <Link href="/profile">
-            <Image src={`${session?.user.image}`} alt="profile" width={44} height={44} />
+        session?.user ? <div className="flex space-x-4 items-center">
+            <Link href="/profile" className='p-2 rounded-full'>
+            <Image src={`${session?.user.image}`} alt="profile" width={44} height={44} className='rounded-full shrink-0' />
             </Link>
             
-            <button>Logout</button>
+            <SignOut />
           </div> : <div className='bg-blue-400 text-white px-6 py-2 rounded-full hover:bg-blue-600 transition-colors
           duration-300 cursor-pointer'>
             <SignIn />
