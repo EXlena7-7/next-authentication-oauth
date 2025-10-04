@@ -1,8 +1,12 @@
 import Link from 'next/link'
 import React from 'react'
 import Image from 'next/image';
+import { SignIn } from './auth-component';
+import { auth } from '@/auth';
 
-const Navbar = () => {
+const Navbar = async () => {
+  const session = await auth()
+  console.log(session?.user)
   const user = false
   return (
     <header className='bg-gray-800 text-white p-4'>
@@ -20,14 +24,16 @@ const Navbar = () => {
 
         {/* user profile*/}
         {
-          user ? <div className="flex space-x-4">
+        session?.user ? <div className="flex space-x-4">
             <Link href="/profile">
-            <Image src="/avatar.png" alt="profile" width={44} height={44} />
+            <Image src={`${session?.user.image}`} alt="profile" width={44} height={44} />
             </Link>
             
             <button>Logout</button>
           </div> : <div className='bg-blue-400 text-white px-6 py-2 rounded-full hover:bg-blue-600 transition-colors
-          duration-300 cursor-pointer'>Login</div>
+          duration-300 cursor-pointer'>
+            <SignIn />
+          </div>
         }
       </nav>
     </header>
