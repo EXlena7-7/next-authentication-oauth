@@ -1,3 +1,7 @@
+Para crear una credencial en NextAuth
+node -e "console.log(require('crypto').randomBytes(32).toString('hex'))" 
+
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
