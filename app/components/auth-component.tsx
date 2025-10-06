@@ -1,28 +1,41 @@
 import { signIn, signOut } from "@/auth"
 
-
-export const SignIn = ({provider, ...props} : {provider?: string} & React.ButtonHTMLAttributes<HTMLButtonElement>) =>{
-    return(
+export function SignIn({
+    provider,
+    ...props
+}: { provider?: string } & React.ButtonHTMLAttributes<HTMLButtonElement>) {
+    return (
         <form
-        action={async () => {
-          "use server"
-          await signIn("github")
-        }}
-      >
-        <button {...props} type="submit">Sign In</button>
-      </form>
+            action={async () => {
+                "use server"
+                await signIn(provider)
+            }}
+        >
+            <button
+                {...props}
+                className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+            >
+                Sign In
+            </button>
+        </form>
     )
 }
 
-export const SignOut = (props: React.ButtonHTMLAttributes<HTMLButtonElement>) =>{
-    return(
+export function SignOut(props: React.ButtonHTMLAttributes<HTMLButtonElement>) {
+    return (
         <form
-        action={async () => {
-          "use server"
-          await signOut()
-        }}
-      >
-        <button {...props} type="submit" className="bg-red-400 text-white px-6 py-2 rounded-full cursor-pointer">Sign Out</button>
-      </form>
+            action={async () => {
+                "use server"
+                await signOut()
+            }}
+            className="w-full"
+        >
+            <button
+                className="w-full p-0 bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
+                {...props}
+            >
+                Sign Out
+            </button>
+        </form>
     )
 }

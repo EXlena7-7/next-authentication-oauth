@@ -1,2 +1,5 @@
 @import "tailwindcss";
 
+.card, .signin > div, .signin form {
+    background-color: white !important;
+}

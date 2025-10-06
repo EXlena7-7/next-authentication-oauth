@@ -3,41 +3,50 @@ import React from 'react'
 import Image from 'next/image';
 import { SignIn, SignOut } from './auth-component';
 import { auth } from '@/auth';
+import MobileMenu from './MobileMenu';
 
 const Navbar = async () => {
   const session = await auth()
   console.log(session?.user)
-  const user = false
-  return (
-    <header className='bg-gray-800 text-white p-4'>
-      <nav className='container mx-auto flex justify-between items-center'>
-        {/* Logo */}
-        <div className='text-lg font-semibold'>
-          <Link href="">Logo</Link>
-        </div>
-        <ul className='flex space-x-8 items-center'>
-          <li><Link href="/" className="hover:text-yellow-300">Home</Link></li>
-          <li><Link href="/about" className="hover:text-yellow-300">About</Link></li>
-          <li><Link href="/dashboard" className="hover:text-yellow-300">Dashboard</Link></li>
-          <li><Link href="/contact" className="hover:text-yellow-300">Contact</Link></li>
-        </ul>
 
-        {/* user profile*/}
-        {
-        session?.user ? <div className="flex space-x-4 items-center">
-            <Link href="/profile" className='p-2 rounded-full'>
-            <Image src={`${session?.user.image}`} alt="profile" width={44} height={44} className='rounded-full shrink-0' />
-            </Link>
-            
-            <SignOut />
-          </div> : <div className='bg-blue-400 text-white px-6 py-2 rounded-full hover:bg-blue-600 transition-colors
-          duration-300 cursor-pointer'>
-            <SignIn />
+  return (
+      <nav className="bg-gray-800 p-4">
+          <div className="container mx-auto flex justify-between items-center">
+              <div className="text-white text-lg font-bold">
+                  <Link href="/">MarjoDev</Link>
+              </div>
+              <div className="hidden md:flex space-x-6">
+                  <Link href="/" className="text-white">Home</Link>
+                  <Link href="/about" className="text-white">About</Link>
+                  <Link href="/contact" className="text-white">Contact</Link>
+              </div>
+
+              <div>
+                  {
+                    session?.user &&  session?.user ? (
+                          <div className='flex items-center space-x-4'>
+                          <Link href="/dashboard" className='border'>
+                          <Image
+                              className="shrink-0  rounded-full"
+                              src={session?.user?.image || "https://avatar.iran.liara.run/public/1"}
+                              alt="user image"
+                              width={56}
+                              height={65}
+                          />
+                          </Link>
+                          <SignOut className="text-white" />
+                          </div> 
+                      ) :  <SignIn className='text-white'/>
+                  }
+                  
+              </div>
+              <div className="md:hidden">
+                  <MobileMenu />
+              </div>
           </div>
-        }
       </nav>
-    </header>
   )
 }
+
 
 export default Navbar
